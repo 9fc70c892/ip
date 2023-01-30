@@ -46,7 +46,7 @@ jar {
 }
 
 shadowJar {
-    mainClassName = 'Duke'
+    mainClassName = 'Launcher'
     manifest {
         inheritFrom project.jar.manifest
     }
@@ -63,7 +63,7 @@ test {
 
 apply plugin : "java"
 ext {
-    javaMainClass = "Duke"
+    javaMainClass = "Launcher"
 }
 
 application {
