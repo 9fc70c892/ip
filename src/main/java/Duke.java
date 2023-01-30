@@ -11,6 +11,8 @@ import exceptions.DukeException;
  */
 
 public class Duke {
+
+    private static boolean lessonmode = true;
     private static DukeIO dio;
     private static TaskMaster tm;
 
@@ -20,30 +22,34 @@ public class Duke {
      */
     public static void main(String[] args) {
 
-        boolean quit = false;
-        String userInput;
+        if (lessonmode) {
+            Launcher.main(args);
+        } else {
+            boolean quit = false;
+            String userInput;
 
-        initialize();
-        greet();
+            initialize();
+            greet();
 
 
-        while (!quit) {
-            userInput = dio.readLn();
-            if (!userInput.isEmpty()) {
-                dio.lb();
-                try {
-                    Parser a = new Parser(userInput);
-                    dio.println(a.parse(tm));
-                } catch (exceptions.Quit e) {
-                    quit = true;
-                } catch (DukeException de) {
-                    dio.println(de.getMessage());
+            while (!quit) {
+                userInput = dio.readLn();
+                if (!userInput.isEmpty()) {
+                    dio.lb();
+                    try {
+                        Parser a = new Parser(userInput);
+                        dio.println(a.parse(tm));
+                    } catch (exceptions.Quit e) {
+                        quit = true;
+                    } catch (DukeException de) {
+                        dio.println(de.getMessage());
+                    }
+                    dio.lb();
+                    dio.flush();
                 }
-                dio.lb();
-                dio.flush();
             }
+            goodbye();
         }
-        goodbye();
     }
 
     /**
@@ -86,6 +92,5 @@ public class Duke {
         dio.flush();
         dio.close();
     }
-
 }
 
